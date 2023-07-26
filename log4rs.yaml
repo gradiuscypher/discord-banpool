@@ -1,0 +1,20 @@
+refresh_rate: 30 seconds
+appenders:
+  stdout:
+    kind: console
+    encoder:
+      pattern: "{d(%Y-%m-%d %H:%M:%S)} | {({l}):5.5} | {f}:{L} — {m}{n}"
+  bot_logs:
+    kind: file
+    path: "log/bot.log"
+    encoder:
+      pattern: "{d(%Y-%m-%d %H:%M:%S)} | {({l}):5.5} | {f}:{L} — {m}{n}"
+root:
+  level: error
+  appenders:
+    - stdout
+    - bot_logs
+
+loggers:
+  main:
+    level: info

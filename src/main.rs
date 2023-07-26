@@ -1,6 +1,9 @@
 mod commands;
+pub mod db;
+use commands::*;
 
 use dotenv::dotenv;
+use log4rs;
 use std::env;
 
 use poise::serenity_prelude as serenity;
@@ -39,13 +42,14 @@ async fn on_error(error: poise::FrameworkError<'_, Data, Error>) {
 
 #[tokio::main]
 async fn main() {
+    log4rs::init_file("log4rs.yaml", Default::default()).unwrap();
     dotenv().expect("Failed to load .env file");
     let token: String = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
 
     env_logger::init();
 
     let options = poise::FrameworkOptions {
-        commands: vec![register()],
+        commands: vec![register(), pool_management::pool()],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some("~".into()),
             edit_tracker: Some(poise::EditTracker::for_timespan(Duration::from_secs(3600))),

@@ -2,47 +2,36 @@
 name = "bot"
 version = "0.1.0"
 edition = "2021"
-authors = [ "katagatame_ <developer@kata.codes>", "gradius <gradiuscypher@gmail.com>" ]
+authors = [ "gradius <gradiuscypher@gmail.com>" ]
 
 [features]
-default = [ "vote" ]
-vote = [ ]
 cache = [ "serenity/cache" ]
 
-[dependencies.async-trait]
-version = "0.1.68"
-
-[dependencies.chrono]
-version = "0.4.24"
-
-[dependencies.concat-string]
-version = "1.0.1"
-
-[dependencies.dotenv]
-version = "0.15.0"
-
-[dependencies.env_logger]
-version = "0.10.0"
+[dependencies]
+async-trait = "0.1.68"
+chrono = "0.4.24"
+concat-string = "1.0.1"
+dotenv = "0.15.0"
+env_logger = "0.10.0"
+futures-core = "0.3.28"
+futures-util = "0.3.28"
+poise_macros = "0.5.5"
+poise = "0.5.5"
+substring = "1.4.0"
+thiserror = "1.0.30"
+mongodb = "2.1.0"
+anyhow = "1.0"
+log4rs = "1.1.1"
+log = "0.4.17"
+bson = { version = "2", features = ["chrono-0_4"] }
 
 [dependencies.futures]
 version = "0.3.13"
 default-features = false
 
-[dependencies.futures-core]
-version = "0.3.28"
-
-[dependencies.futures-util]
-version = "0.3.28"
-
 [dependencies.once_cell]
 version = "1.17.1"
 features = [ "std" ]
-
-[dependencies.poise]
-version = "0.5.5"
-
-[dependencies.poise_macros]
-version = "0.5.5"
 
 [dependencies.reqwest]
 version = "0.11"
@@ -56,12 +45,6 @@ features = [ "derive" ]
 version = "0.11.5"
 features = [ "builder", "client", "gateway", "model", "utils", "collector" ]
 default-features = false
-
-[dependencies.spacedust]
-version = "1.0.5"
-
-[dependencies.substring]
-version = "1.4.0"
 
 [dependencies.tokio]
 version = "1.28.0"

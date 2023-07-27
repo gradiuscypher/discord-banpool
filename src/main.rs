@@ -44,9 +44,7 @@ async fn on_error(error: poise::FrameworkError<'_, Data, Error>) {
 async fn main() {
     log4rs::init_file("log4rs.yaml", Default::default()).unwrap();
     dotenv().expect("Failed to load .env file");
-    let token: String = env::var("DISCORD_TOKEN").expect("Expected a token in the environment");
-
-    env_logger::init();
+    let token: String = env::var("DISCORD_TOKEN").expect("Expected DISCORD_TOKEN in the env");
 
     let options = poise::FrameworkOptions {
         commands: vec![

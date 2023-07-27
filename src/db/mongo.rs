@@ -5,6 +5,7 @@
 
 use anyhow::{anyhow, Result};
 use chrono::Utc;
+use dotenv::dotenv;
 use log::info;
 use mongodb::bson::doc;
 use mongodb::{options::ClientOptions, Client};
@@ -85,6 +86,7 @@ pub struct NotificationChannel {
 
 impl DB {
     pub async fn init() -> Result<Self> {
+        dotenv().expect("Failed to load .env file");
         let mongo_uri = env::var("MONGODB_URI").expect("MONGODB_URI isn't set!");
         let db_name = env::var("MONGODB_DB").expect("MONGODB_DB isn't set!");
         let client_options = ClientOptions::parse(mongo_uri).await?;

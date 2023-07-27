@@ -49,11 +49,16 @@ async fn main() {
     env_logger::init();
 
     let options = poise::FrameworkOptions {
-        commands: vec![register(), pool_management::pool()],
+        commands: vec![
+            register(),
+            bans::ban(),
+            exceptions::exception(),
+            notifications::notification(),
+            pools::pool(),
+            subscriptions::subscription(),
+        ],
         prefix_options: poise::PrefixFrameworkOptions {
             prefix: Some("~".into()),
-            edit_tracker: Some(poise::EditTracker::for_timespan(Duration::from_secs(3600))),
-            additional_prefixes: vec![],
             ..Default::default()
         },
         /// The global error handler for all error cases that may occur

@@ -6,7 +6,7 @@ appenders:
       pattern: "{d(%Y-%m-%d %H:%M:%S)} | {({l}):5.5} | {f}:{L} — {m}{n}"
   bot_logs:
     kind: file
-    path: "log/bot.log"
+    path: "logs/bot.log"
     encoder:
       pattern: "{d(%Y-%m-%d %H:%M:%S)} | {({l}):5.5} | {f}:{L} — {m}{n}"
 root:

@@ -12,6 +12,11 @@ pub async fn add(ctx: Context<'_>) -> Result<(), Error> {
 }
 
 #[poise::command(slash_command)]
+pub async fn list(ctx: Context<'_>) -> Result<(), Error> {
+    Ok(())
+}
+
+#[poise::command(slash_command)]
 pub async fn remove(ctx: Context<'_>) -> Result<(), Error> {
     Ok(())
 }

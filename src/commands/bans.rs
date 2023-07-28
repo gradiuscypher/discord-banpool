@@ -16,7 +16,7 @@ async fn autocomplete_pools<'a>(
         .map(|pool| pool.pool_name)
 }
 
-#[poise::command(slash_command, subcommands("add", "get", "remove"))]
+#[poise::command(slash_command, subcommands("add", "list", "remove"))]
 pub async fn ban(_: Context<'_>) -> Result<(), Error> {
     Ok(())
 }
@@ -65,7 +65,7 @@ pub async fn add(
 }
 
 #[poise::command(slash_command)]
-pub async fn get(
+pub async fn list(
     ctx: Context<'_>,
     #[description = "Target User ID"] user_id: String,
 ) -> Result<(), Error> {
@@ -78,10 +78,9 @@ pub async fn get(
                 ban_string.push_str(format!("{}\n", ban.pool_name).as_str());
             }
 
-            info!("Added pool: {}", user_id);
             ctx.send(|r| {
                 r.embed(|r| {
-                    r.title("Get Bans")
+                    r.title("List Bans")
                         .color(Color::DARK_GREEN)
                         .description(format!("User is in these pools:\n {ban_string}"))
                 })
@@ -93,7 +92,7 @@ pub async fn get(
             error!("Unable to fetch bans for user ID {}: {}", user_id, e);
             ctx.send(|r| {
                 r.embed(|r| {
-                    r.title("Get Bans")
+                    r.title("List Bans")
                         .color(Color::RED)
                         .description(format!("Unable to fetch bans for User ID {user_id}\n{e}"))
                 })
@@ -104,7 +103,7 @@ pub async fn get(
     }
 }
 
-/// Remove a target banpool by name
+/// Remove a target ban by User ID and Pool name
 #[poise::command(slash_command)]
 pub async fn remove(
     ctx: Context<'_>,
@@ -116,7 +115,7 @@ pub async fn remove(
     let db = DB::init().await.unwrap();
     match db.delete_ban(&user_id, &pool).await {
         Ok(_) => {
-            info!("Added pool: {}", user_id);
+            info!("Removed {} from {} pool", user_id, &pool);
             ctx.send(|r| {
                 r.embed(|r| {
                     r.title("Remove Ban")
@@ -128,7 +127,7 @@ pub async fn remove(
             Ok(())
         }
         Err(e) => {
-            error!("Failed to add {} to {} banpool", user_id, pool);
+            error!("Failed to remove {} from {} banpool", user_id, pool);
             ctx.send(|r| {
                 r.embed(|r| {
                     r.title("Remove Ban")
